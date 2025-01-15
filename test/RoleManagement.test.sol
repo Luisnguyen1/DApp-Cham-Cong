@@ -38,7 +38,7 @@ contract RoleManagementTest is Test {
 
     function testAssignRoleFail() public {
         vm.startPrank(TEST_USER);
-        vm.expectRevert("Only Root can perform this action");
+        vm.expectRevert("Only Root or HR Manager can perform this action");
         roleManagement.assignRole(TEST_USER2, RoleManagement.Role.Employee);
         vm.stopPrank();
     }
