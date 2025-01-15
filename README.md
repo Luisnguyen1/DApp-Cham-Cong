@@ -17,4 +17,4 @@ During test execution (`forge test`), the following failures were encountered:
 
 ### Root Cause
 
-Lỗi gặp phải vì modifier onlyRootOrHR trong RoleManagement.sol constract gặp vấn đề và em chưa thể tìm ra nguyên nhân cụ thể mặc dụ đã set up trong file test đầy đủ. 
+Lỗi gặp phải vì modifier onlyRootOrHR trong RoleManagement.sol constract gặp vấn đề và em chưa thể tìm ra nguyên nhân cụ thể mặc dù đã set up trong file test đầy đủ. 
