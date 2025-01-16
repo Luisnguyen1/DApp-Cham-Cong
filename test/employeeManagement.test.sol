@@ -33,12 +33,12 @@ contract EmployeeManagementTest is Test {
         assertTrue(roleManagement.isRootOrHR(hrManager));
     }
 
-    function testRoleAssignment() public {
+    function testRoleAssignment() public view {
         assertEq(uint(roleManagement.checkRole(hrManager)), uint(RoleManagement.Role.HRManager));
     }
 
     // Thêm test case mới để kiểm tra role
-    function testInitialRoles() public {
+    function testInitialRoles() public view {
         assertTrue(roleManagement.isRoot(root), "Root should be set");
         assertEq(
             uint(roleManagement.checkRole(hrManager)),
@@ -100,6 +100,7 @@ contract EmployeeManagementTest is Test {
     function testAddEmployee() public {
         vm.startPrank(hrManager);
         string memory refcode = empManagement.createRefCode();
+        roleManagement.assignRole(employee1, RoleManagement.Role.Employee);
         require(roleManagement.isHRManager(hrManager), "HR Manager role not set properly");
         empManagement.addEmployee(
             refcode,
@@ -143,11 +144,9 @@ contract EmployeeManagementTest is Test {
     }
 
     function testRemoveEmployee() public {
-
-        
         vm.startPrank(hrManager);
         string memory refcode = empManagement.createRefCode();
-        
+        roleManagement.assignRole(employee1, RoleManagement.Role.Employee);
         empManagement.addEmployee(
             refcode,
             employee1,
@@ -158,6 +157,7 @@ contract EmployeeManagementTest is Test {
         );
 
         empManagement.removeEmployee(employee1);
+        roleManagement.revokeRole(employee1);
         
         vm.expectRevert("Employee does not exist");
         empManagement.getEmployeeInfo(employee1);
@@ -227,7 +227,7 @@ contract EmployeeManagementTest is Test {
     }
 
     // Add debug test
-    function testPermissions() public {
+    function testPermissions() public view {
         assertTrue(roleManagement.isRoot(root), "Root should be recognized");
         assertTrue(roleManagement.isHRManager(hrManager), "HR should be recognized");
         assertTrue(roleManagement.isRootOrHR(hrManager), "HR should have correct permissions");

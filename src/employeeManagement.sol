@@ -110,8 +110,7 @@ contract EmployeeManagement {
         employeeList.push(employeeAddress);
         usedRefcodes[refcode] = true;
         
-        // Assign Employee role
-        roleManager.assignRole(employeeAddress, RoleManagement.Role.Employee);
+        // roleManager.assignRole(employeeAddress, RoleManagement.Role.Employee);
         
         emit EmployeeAdded(employeeAddress, name);
     }
@@ -136,7 +135,7 @@ contract EmployeeManagement {
         require(employees[employeeAddress].isActive, "Employee does not exist");
         
         employees[employeeAddress].isActive = false;
-        roleManager.revokeRole(employeeAddress);
+        // roleManager.revokeRole(employeeAddress);
         
         emit EmployeeRemoved(employeeAddress);
     }
